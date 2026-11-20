@@ -172,11 +172,22 @@ export type DeepseekReadUrlTool = {
   name: 'deepseek_read_url'
 }
 
+export type ReasoningEffort =
+  | 'none'
+  | 'minimal'
+  | 'low'
+  | 'medium'
+  | 'high'
+  | 'xhigh'
+  | 'ultra'
+  | 'max'
+
 export type CreateMessageRequest = {
   model: ChatModel
   system: string
   messages: MessageParam[]
-  thinking: { type: 'enabled' | 'disabled' }
+  thinking: { type: 'enabled' | 'disabled' | 'adaptive' }
+  output_config: { effort: ReasoningEffort }
   tools: (DeepseekWebSearchTool | DeepseekReadUrlTool)[]
   safety_check: { level: 'high' }
   title?: { enabled: boolean }
