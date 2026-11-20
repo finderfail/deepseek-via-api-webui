@@ -243,28 +243,67 @@
   padding: 12px;
 }
 
-.toggles {
+.effort {
   display: flex;
   flex: 1;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
 }
 
-.collapsedToggles .toggleLabel {
-  display: none;
-}
-
-.toggle {
+.effortLabel {
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
-  justify-content: center;
   gap: 4px;
-  height: 34px;
-  padding: 0 12px;
-  border-radius: 18px;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--dsw-alias-label-caption);
+  white-space: nowrap;
+}
+
+.effortText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 96px;
+}
+
+.effortTrack {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 132px;
+  padding: 2px;
   border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 18px;
+  background-color: transparent;
+}
+
+.effortThumb {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  width: calc(50% - 2px);
+  border-radius: 16px;
+  background-color: var(--dsw-alias-button-ghost-active-fill);
+  transition: transform var(--ds-transition-duration) var(--ds-ease-in-out);
+}
+
+.effortTrack[data-effort='medium'] .effortThumb {
+  transform: translateX(100%);
+}
+
+.effortOption {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 50%;
+  height: 28px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 16px;
   background-color: transparent;
   color: var(--dsw-alias-label-primary);
   font: inherit;
@@ -274,26 +313,29 @@
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  transition-property: border, background;
-  transition-duration: 0.2s;
+  transition: color var(--ds-transition-duration) var(--ds-ease-in-out);
 
-  &:hover:not(:disabled) {
-    background-color: var(--dsw-alias-interactive-bg-hover);
+  &:hover:not(:disabled):not(.effortOptionSelected) {
+    color: var(--dsw-alias-brand-text);
   }
 
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;
   }
+}
 
-  &.selected {
-    background-color: var(--dsw-alias-button-ghost-active-fill);
-    color: var(--dsw-alias-brand-text);
-    border-color: var(--dsw-alias-button-ghost-active-border);
+.effortOptionSelected {
+  color: var(--dsw-alias-brand-text);
+}
 
-    &:hover {
-      background-color: var(--dsw-alias-button-ghost-active-hover);
-    }
+@media not all and (min-width: 440px) {
+  .effortText {
+    display: none;
+  }
+
+  .effortTrack {
+    width: 112px;
   }
 }
 

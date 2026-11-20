@@ -41,7 +41,6 @@ import {
 /** deepseek-flash 同时支持深度思考与图片输入 */
 const MODEL: ChatModel = 'deepseek-flash'
 const THINKING = { type: 'enabled' } as const
-const OUTPUT_CONFIG = { effort: 'low' } as const
 /** 所有生成请求统一携带的助手身份说明 */
 const SYSTEM_PROMPT =
   '你是一个乐于助人的聊天助手：既能陪用户进行日常对话，也能帮助用户编写代码、排查问题和解释代码。' +
@@ -256,7 +255,6 @@ export const bindChatPersistence = () => {
     window.removeEventListener('pagehide', save)
   }
 }
-
 
 const createReply = (): AssistantMessage => {
   return {
@@ -1022,7 +1020,7 @@ const streamReply = async (sessionId: string, initial: AssistantMessage, request
             system: SYSTEM_PROMPT,
             messages,
             thinking: THINKING,
-            output_config: OUTPUT_CONFIG,
+            output_config: { effort: useSettings.getState().effort },
             safety_check: SAFETY_CHECK,
             tools: serverTools(),
             ...(titleRequests.has(controller) ? { title: { enabled: true } } : {}),

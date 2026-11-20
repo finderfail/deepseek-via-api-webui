@@ -20,6 +20,7 @@ import { useChatStore } from '../../services/chat/store.js'
 import { regionCodes, getRegionName, provinces } from '../../services/location.js'
 import {
   isChineseBrowser,
+  setApiKey,
   setLocale,
   setLocation,
   setThemePreference,
@@ -182,6 +183,7 @@ const useHistoryDelete = () => {
     setBusy(true)
     try {
       await clearHistory()
+      setApiKey(null)
       setOpened(false)
       showToast({ key: 'historyDeleted' })
     } catch {
